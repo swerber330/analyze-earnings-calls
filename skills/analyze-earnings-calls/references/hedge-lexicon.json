@@ -1,0 +1,58 @@
+{
+  "name": "earnings-call-hedges",
+  "version": "1.0.0",
+  "categories": {
+    "approximation": [
+      "approximately",
+      "around",
+      "roughly",
+      "about"
+    ],
+    "conditionality": [
+      "depending on",
+      "subject to",
+      "to the extent",
+      "if",
+      "unless"
+    ],
+    "epistemic_uncertainty": [
+      "we believe",
+      "we think",
+      "we estimate",
+      "we assume",
+      "we anticipate",
+      "we expect",
+      "it appears",
+      "it seems",
+      "believe",
+      "think",
+      "estimate",
+      "assume",
+      "anticipate",
+      "expect",
+      "likely",
+      "unlikely",
+      "perhaps",
+      "possibly",
+      "probably"
+    ],
+    "modal_uncertainty": [
+      "may",
+      "might",
+      "could"
+    ],
+    "range_or_variability": [
+      "or so",
+      "more or less",
+      "in the range of",
+      "at least",
+      "at most",
+      "up to"
+    ]
+  },
+  "contextual_rules": {
+    "about": "Count only when a numeric, currency, percent, multiple, or basis-point expression occurs within the next three tokens.",
+    "may": "Do not count title-cased May, which is treated as the month name."
+  },
+  "matching": "Case-insensitive token matching, longest phrase first, with non-overlapping matches."
+}

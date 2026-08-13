@@ -1,0 +1,272 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://www.davewang.ai/schemas/earnings-transcript-input-1.0.json",
+  "title": "Normalized four-slot earnings-call language-analysis input",
+  "type": "object",
+  "required": [
+    "calls"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "company": {
+      "type": "object"
+    },
+    "normalization": {
+      "$ref": "#/$defs/tool"
+    },
+    "calls": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "items": {
+        "$ref": "#/$defs/call"
+      }
+    }
+  },
+  "$defs": {
+    "tool": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "identifier",
+        "version"
+      ],
+      "properties": {
+        "identifier": {
+          "type": "string",
+          "minLength": 1
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "sectionCoverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "prepared_remarks",
+        "qa"
+      ],
+      "properties": {
+        "prepared_remarks": {
+          "enum": [
+            "complete",
+            "partial",
+            "missing"
+          ]
+        },
+        "qa": {
+          "enum": [
+            "complete",
+            "partial",
+            "missing"
+          ]
+        }
+      }
+    },
+    "sentimentModel": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "identifier",
+        "version",
+        "config_sha256",
+        "asset_sha256"
+      ],
+      "properties": {
+        "identifier": {
+          "type": "string",
+          "minLength": 1
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "config_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "asset_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    },
+    "probabilities": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "positive",
+        "negative",
+        "neutral"
+      ],
+      "properties": {
+        "positive": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "negative": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "neutral": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      }
+    },
+    "turn": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "turn_id",
+        "speaker",
+        "role",
+        "section",
+        "text",
+        "locator"
+      ],
+      "properties": {
+        "turn_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "speaker": {
+          "type": "string",
+          "minLength": 1
+        },
+        "role": {
+          "type": "string",
+          "minLength": 1
+        },
+        "section": {
+          "enum": [
+            "prepared_remarks",
+            "prepared remarks",
+            "prepared",
+            "qa",
+            "q&a",
+            "questions and answers",
+            "safe_harbor",
+            "safe harbor",
+            "operator",
+            "operator_instructions",
+            "unknown"
+          ]
+        },
+        "text": {
+          "type": "string"
+        },
+        "locator": {
+          "type": "object",
+          "minProperties": 1
+        },
+        "sentiment_probabilities": {
+          "$ref": "#/$defs/probabilities"
+        },
+        "sentiment_model": {
+          "$ref": "#/$defs/sentimentModel"
+        },
+        "include": {
+          "type": "boolean"
+        },
+        "overlap_unresolved": {
+          "type": "boolean"
+        },
+        "speaker_uncertain": {
+          "type": "boolean"
+        },
+        "duplicate_of": {
+          "type": "string"
+        },
+        "normalization_flags": {
+          "oneOf": [
+            {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            {
+              "type": "object"
+            }
+          ]
+        }
+      }
+    },
+    "call": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "call_id",
+        "quarter",
+        "fiscal_year",
+        "fiscal_quarter",
+        "section_coverage",
+        "turns"
+      ],
+      "properties": {
+        "call_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "quarter": {
+          "type": "string",
+          "minLength": 1
+        },
+        "fiscal_year": {
+          "type": "integer"
+        },
+        "fiscal_quarter": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4
+        },
+        "call_date": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "source_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source": {
+          "type": "object",
+          "additionalProperties": true,
+          "properties": {
+            "id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "title": {
+              "type": "string"
+            },
+            "url": {
+              "type": "string",
+              "pattern": "^https://"
+            }
+          }
+        },
+        "section_coverage": {
+          "$ref": "#/$defs/sectionCoverage"
+        },
+        "sentiment_model": {
+          "$ref": "#/$defs/sentimentModel"
+        },
+        "turns": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/turn"
+          }
+        }
+      }
+    }
+  }
+}

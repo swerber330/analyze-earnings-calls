@@ -1,0 +1,937 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://www.davewang.ai/schemas/earnings-call-report-1.0.json",
+  "title": "Dave Wang earnings-call analysis report",
+  "description": "Strict renderer input. Arrays preserve display order; use newest-first order for all quarter series. Source IDs must also pass the renderer's cross-reference validation.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "generated_at",
+    "company",
+    "executive_view",
+    "guidance_changes",
+    "kpi_table",
+    "sentiment",
+    "hedge_analysis",
+    "qa_themes",
+    "risks",
+    "monitoring_items",
+    "sources",
+    "methodology",
+    "limitations",
+    "analysis_manifest",
+    "compliance"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "company": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "ticker",
+        "fiscal_period",
+        "call_date"
+      ],
+      "properties": {
+        "name": {
+          "$ref": "#/$defs/nonEmpty"
+        },
+        "ticker": {
+          "$ref": "#/$defs/nonEmpty"
+        },
+        "exchange": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "fiscal_period": {
+          "$ref": "#/$defs/nonEmpty",
+          "description": "Must equal kpi_table.periods[0]; enforced by the renderer."
+        },
+        "call_date": {
+          "$ref": "#/$defs/nonEmpty"
+        }
+      }
+    },
+    "executive_view": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "bottom_line",
+        "what_changed",
+        "key_debate",
+        "watch_next"
+      ],
+      "properties": {
+        "bottom_line": {
+          "$ref": "#/$defs/claim"
+        },
+        "what_changed": {
+          "$ref": "#/$defs/claim"
+        },
+        "key_debate": {
+          "$ref": "#/$defs/claim"
+        },
+        "watch_next": {
+          "$ref": "#/$defs/claim"
+        }
+      }
+    },
+    "guidance_changes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/guidanceChange"
+      }
+    },
+    "kpi_table": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "periods",
+        "rows"
+      ],
+      "properties": {
+        "periods": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/nonEmpty"
+          }
+        },
+        "rows": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/kpiRow"
+          }
+        }
+      }
+    },
+    "sentiment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "method",
+        "scope",
+        "coverage",
+        "quarters",
+        "current_vs_prior",
+        "latest_lenses"
+      ],
+      "properties": {
+        "method": {
+          "$ref": "#/$defs/sentimentMethod"
+        },
+        "scope": {
+          "enum": [
+            "executive_total",
+            "executive_prepared"
+          ]
+        },
+        "coverage": {
+          "$ref": "#/$defs/nonEmpty"
+        },
+        "quarters": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "items": {
+            "$ref": "#/$defs/sentimentQuarter"
+          },
+          "description": "Exactly the same period labels and order as kpi_table.periods; enforced by the renderer."
+        },
+        "current_vs_prior": {
+          "$ref": "#/$defs/comparison"
+        },
+        "latest_lenses": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 4,
+          "items": {
+            "$ref": "#/$defs/sentimentLens"
+          }
+        }
+      }
+    },
+    "hedge_analysis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "method",
+        "version",
+        "scope",
+        "coverage",
+        "quarters",
+        "current_vs_prior",
+        "top_terms"
+      ],
+      "properties": {
+        "method": {
+          "$ref": "#/$defs/nonEmpty"
+        },
+        "version": {
+          "$ref": "#/$defs/nonEmpty"
+        },
+        "scope": {
+          "enum": [
+            "executive_total",
+            "executive_prepared"
+          ]
+        },
+        "coverage": {
+          "$ref": "#/$defs/nonEmpty"
+        },
+        "quarters": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "items": {
+            "$ref": "#/$defs/hedgeQuarter"
+          },
+          "description": "Exactly the same period labels and order as kpi_table.periods; enforced by the renderer."
+        },
+        "current_vs_prior": {
+          "$ref": "#/$defs/comparison"
+        },
+        "top_terms": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "term",
+              "count"
+            ],
+            "properties": {
+              "term": {
+                "$ref": "#/$defs/nonEmpty"
+              },
+              "count": {
+                "type": "integer",
+                "minimum": 0
+              }
+            }
+          }
+        }
+      }
+    },
+    "qa_themes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "theme",
+          "analysis"
+        ],
+        "properties": {
+          "theme": {
+            "$ref": "#/$defs/nonEmpty"
+          },
+          "analysis": {
+            "$ref": "#/$defs/claim"
+          }
+        }
+      }
+    },
+    "risks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "risk",
+          "analysis"
+        ],
+        "properties": {
+          "risk": {
+            "$ref": "#/$defs/nonEmpty"
+          },
+          "analysis": {
+            "$ref": "#/$defs/claim"
+          }
+        }
+      }
+    },
+    "monitoring_items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "item",
+          "signal"
+        ],
+        "properties": {
+          "item": {
+            "$ref": "#/$defs/nonEmpty"
+          },
+          "signal": {
+            "$ref": "#/$defs/claim"
+          }
+        }
+      }
+    },
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/source"
+      }
+    },
+    "methodology": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/nonEmpty"
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/nonEmpty"
+      }
+    },
+    "analysis_manifest": {
+      "$ref": "#/$defs/analysisManifest"
+    },
+    "compliance": {
+      "$ref": "#/$defs/compliance"
+    }
+  },
+  "$defs": {
+    "nonEmpty": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "sourceRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_id",
+        "locator"
+      ],
+      "properties": {
+        "source_id": {
+          "$ref": "#/$defs/nonEmpty"
+        },
+        "locator": {
+          "$ref": "#/$defs/nonEmpty"
+        }
+      }
+    },
+    "claim": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "text",
+        "sources"
+      ],
+      "properties": {
+        "text": {
+          "$ref": "#/$defs/nonEmpty"
+        },
+        "sources": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/sourceRef"
+          }
+        }
+      }
+    },
+    "endpoint": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "value",
+        "source_id",
+        "locator"
+      ],
+      "properties": {
+        "value": {
+          "$ref": "#/$defs/nonEmpty"
+        },
+        "source_id": {
+          "$ref": "#/$defs/nonEmpty"
+        },
+        "locator": {
+          "$ref": "#/$defs/nonEmpty"
+        }
+      }
+    },
+    "guidanceChange": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "metric",
+        "target_period",
+        "scope",
+        "basis",
+        "unit",
+        "currency",
+        "classification",
+        "prior",
+        "current",
+        "change",
+        "analysis"
+      ],
+      "properties": {
+        "metric": {
+          "$ref": "#/$defs/nonEmpty"
+        },
+        "target_period": {
+          "$ref": "#/$defs/nonEmpty"
+        },
+        "scope": {
+          "$ref": "#/$defs/nonEmpty"
+        },
+        "basis": {
+          "$ref": "#/$defs/nonEmpty"
+        },
+        "unit": {
+          "$ref": "#/$defs/nonEmpty"
+        },
+        "currency": {
+          "$ref": "#/$defs/nonEmpty"
+        },
+        "classification": {
+          "enum": [
+            "introduced",
+            "raised",
+            "lowered",
+            "narrowed",
+            "widened",
+            "reiterated",
+            "maintained",
+            "withdrawn",
+            "not_updated",
+            "qualitative_only",
+            "not_comparable"
+          ]
+        },
+        "prior": {
+          "$ref": "#/$defs/endpoint"
+        },
+        "current": {
+          "$ref": "#/$defs/endpoint"
+        },
+        "change": {
+          "$ref": "#/$defs/claim"
+        },
+        "analysis": {
+          "$ref": "#/$defs/claim"
+        },
+        "modifiers": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "range_narrowed",
+              "range_widened",
+              "floor_raised",
+              "ceiling_raised",
+              "floor_lowered",
+              "ceiling_lowered"
+            ]
+          }
+        }
+      }
+    },
+    "kpiCell": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "status",
+            "value",
+            "source_id",
+            "locator"
+          ],
+          "properties": {
+            "status": {
+              "const": "reported"
+            },
+            "value": {
+              "$ref": "#/$defs/nonEmpty"
+            },
+            "source_id": {
+              "$ref": "#/$defs/nonEmpty"
+            },
+            "locator": {
+              "$ref": "#/$defs/nonEmpty"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "status",
+            "gap_reason"
+          ],
+          "properties": {
+            "status": {
+              "enum": [
+                "not_discussed",
+                "not_applicable",
+                "source_unavailable",
+                "missing_transcript"
+              ]
+            },
+            "gap_reason": {
+              "$ref": "#/$defs/nonEmpty"
+            }
+          }
+        }
+      ]
+    },
+    "kpiRow": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "metric",
+        "category",
+        "scope",
+        "basis",
+        "definition",
+        "definition_change",
+        "comparability_status",
+        "unit",
+        "values",
+        "takeaway"
+      ],
+      "properties": {
+        "metric": {
+          "$ref": "#/$defs/nonEmpty"
+        },
+        "category": {
+          "$ref": "#/$defs/nonEmpty"
+        },
+        "scope": {
+          "$ref": "#/$defs/nonEmpty"
+        },
+        "basis": {
+          "$ref": "#/$defs/nonEmpty"
+        },
+        "definition": {
+          "$ref": "#/$defs/nonEmpty"
+        },
+        "definition_change": {
+          "$ref": "#/$defs/nonEmpty"
+        },
+        "comparability_status": {
+          "enum": [
+            "exact",
+            "bridged",
+            "directional",
+            "not_comparable",
+            "insufficient_evidence"
+          ]
+        },
+        "unit": {
+          "$ref": "#/$defs/nonEmpty"
+        },
+        "values": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "items": {
+            "$ref": "#/$defs/kpiCell"
+          }
+        },
+        "takeaway": {
+          "$ref": "#/$defs/claim"
+        }
+      }
+    },
+    "sentimentQuarter": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "period",
+            "status",
+            "score",
+            "label",
+            "source_id",
+            "locator",
+            "word_count",
+            "turn_count"
+          ],
+          "properties": {
+            "period": {
+              "$ref": "#/$defs/nonEmpty"
+            },
+            "status": {
+              "const": "available"
+            },
+            "score": {
+              "type": "number",
+              "minimum": -100,
+              "maximum": 100
+            },
+            "label": {
+              "$ref": "#/$defs/nonEmpty"
+            },
+            "source_id": {
+              "$ref": "#/$defs/nonEmpty"
+            },
+            "locator": {
+              "$ref": "#/$defs/nonEmpty"
+            },
+            "word_count": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "turn_count": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        },
+        {
+          "$ref": "#/$defs/gapQuarter"
+        }
+      ]
+    },
+    "hedgeQuarter": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "period",
+            "status",
+            "raw_count",
+            "word_count",
+            "rate_per_1000",
+            "source_id",
+            "locator"
+          ],
+          "properties": {
+            "period": {
+              "$ref": "#/$defs/nonEmpty"
+            },
+            "status": {
+              "const": "available"
+            },
+            "raw_count": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "word_count": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "rate_per_1000": {
+              "type": "number",
+              "minimum": 0
+            },
+            "source_id": {
+              "$ref": "#/$defs/nonEmpty"
+            },
+            "locator": {
+              "$ref": "#/$defs/nonEmpty"
+            }
+          }
+        },
+        {
+          "$ref": "#/$defs/gapQuarter"
+        }
+      ]
+    },
+    "gapQuarter": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "period",
+        "status",
+        "gap_reason"
+      ],
+      "properties": {
+        "period": {
+          "$ref": "#/$defs/nonEmpty"
+        },
+        "status": {
+          "const": "gap"
+        },
+        "gap_reason": {
+          "$ref": "#/$defs/nonEmpty"
+        }
+      }
+    },
+    "comparison": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "available",
+            "direction",
+            "delta",
+            "analysis"
+          ],
+          "properties": {
+            "available": {
+              "const": true
+            },
+            "direction": {
+              "enum": [
+                "up",
+                "down",
+                "flat"
+              ]
+            },
+            "delta": {
+              "type": "number"
+            },
+            "analysis": {
+              "$ref": "#/$defs/claim"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "available",
+            "gap_reason"
+          ],
+          "properties": {
+            "available": {
+              "const": false
+            },
+            "gap_reason": {
+              "$ref": "#/$defs/nonEmpty"
+            }
+          }
+        }
+      ]
+    },
+    "sentimentLens": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "lens",
+        "score",
+        "label",
+        "sources"
+      ],
+      "properties": {
+        "lens": {
+          "$ref": "#/$defs/nonEmpty"
+        },
+        "score": {
+          "type": "number",
+          "minimum": -100,
+          "maximum": 100
+        },
+        "label": {
+          "$ref": "#/$defs/nonEmpty"
+        },
+        "sources": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/sourceRef"
+          }
+        }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "title",
+        "publisher",
+        "url",
+        "retrieved_at",
+        "fiscal_period",
+        "coverage",
+        "source_type",
+        "source_grade",
+        "rights_access_note"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/nonEmpty"
+        },
+        "title": {
+          "$ref": "#/$defs/nonEmpty"
+        },
+        "publisher": {
+          "$ref": "#/$defs/nonEmpty"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https://[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?(?:\\.[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])?)+(?::[0-9]{1,5})?(?:[/?#][!-~]*)?$",
+          "description": "Absolute HTTPS URL with a DNS-style host; renderer additionally rejects credentials, malformed ports, whitespace, controls, ambiguous separators, and malformed percent escapes."
+        },
+        "published_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "retrieved_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "fiscal_period": {
+          "$ref": "#/$defs/nonEmpty"
+        },
+        "coverage": {
+          "$ref": "#/$defs/nonEmpty"
+        },
+        "source_type": {
+          "$ref": "#/$defs/nonEmpty"
+        },
+        "source_grade": {
+          "$ref": "#/$defs/nonEmpty"
+        },
+        "rights_access_note": {
+          "$ref": "#/$defs/nonEmpty"
+        },
+        "raw_sha256": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "normalized_sha256": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    },
+    "toolVersion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "identifier",
+        "version"
+      ],
+      "properties": {
+        "identifier": {
+          "$ref": "#/$defs/nonEmpty"
+        },
+        "version": {
+          "$ref": "#/$defs/nonEmpty"
+        }
+      }
+    },
+    "sentimentMethod": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "identifier",
+        "version",
+        "asset_sha256"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "finbert_probabilities",
+            "bundled_finance_lexicon"
+          ]
+        },
+        "identifier": {
+          "$ref": "#/$defs/nonEmpty"
+        },
+        "version": {
+          "$ref": "#/$defs/nonEmpty"
+        },
+        "asset_sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "analysisManifest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "normalization",
+        "analyzer",
+        "renderer",
+        "normalized_input_sha256",
+        "analyzer_config_sha256",
+        "sentiment_method",
+        "hedge_lexicon_sha256"
+      ],
+      "properties": {
+        "normalization": {
+          "$ref": "#/$defs/toolVersion"
+        },
+        "analyzer": {
+          "$ref": "#/$defs/toolVersion"
+        },
+        "renderer": {
+          "$ref": "#/$defs/toolVersion"
+        },
+        "normalized_input_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "analyzer_config_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "sentiment_method": {
+          "$ref": "#/$defs/sentimentMethod"
+        },
+        "hedge_lexicon_sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "compliance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "rights_reviewed",
+        "contains_no_known_confidential_third_party_information",
+        "statement"
+      ],
+      "properties": {
+        "rights_reviewed": {
+          "const": true
+        },
+        "contains_no_known_confidential_third_party_information": {
+          "const": true
+        },
+        "statement": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}

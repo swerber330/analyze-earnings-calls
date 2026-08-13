@@ -1,0 +1,617 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-08-11T14:30:00-04:00",
+  "company": {
+    "name": "Example Systems",
+    "ticker": "EXM",
+    "exchange": "NASDAQ",
+    "fiscal_period": "Q2 FY2026",
+    "call_date": "2026-07-30"
+  },
+  "executive_view": {
+    "bottom_line": {
+      "text": "Revenue growth accelerated and management raised the full-year revenue floor, while margin guidance remained unchanged.",
+      "sources": [
+        {
+          "source_id": "S1",
+          "locator": "prepared remarks, paragraphs 12–16"
+        }
+      ]
+    },
+    "what_changed": {
+      "text": "Backlog conversion improved from the prior quarter, but management attached more timing caveats to enterprise deployments.",
+      "sources": [
+        {
+          "source_id": "S1",
+          "locator": "Q&A, CFO response to A. Analyst"
+        },
+        {
+          "source_id": "S2",
+          "locator": "Q1 FY2026 Q&A, CFO response"
+        }
+      ]
+    },
+    "key_debate": {
+      "text": "The central debate is whether backlog converts without heavier incentives as large implementations move into production.",
+      "sources": [
+        {
+          "source_id": "S1",
+          "locator": "Q&A, questions 2 and 5"
+        }
+      ]
+    },
+    "watch_next": {
+      "text": "Track bookings growth, gross margin, and management's language around deployment timing next quarter.",
+      "sources": [
+        {
+          "source_id": "S1",
+          "locator": "prepared remarks, paragraphs 18–22"
+        }
+      ]
+    }
+  },
+  "guidance_changes": [
+    {
+      "metric": "Full-year revenue",
+      "target_period": "FY2026",
+      "scope": "Consolidated company",
+      "basis": "GAAP revenue",
+      "unit": "billions",
+      "currency": "USD",
+      "classification": "raised",
+      "prior": {
+        "value": "$4.10–$4.30B",
+        "source_id": "S2",
+        "locator": "prepared remarks, guidance paragraph"
+      },
+      "current": {
+        "value": "$4.20–$4.30B",
+        "source_id": "S1",
+        "locator": "prepared remarks, guidance paragraph"
+      },
+      "change": {
+        "text": "The lower bound increased by $100M and the upper bound was maintained.",
+        "sources": [
+          {
+            "source_id": "S2",
+            "locator": "prepared remarks, guidance paragraph"
+          },
+          {
+            "source_id": "S1",
+            "locator": "prepared remarks, guidance paragraph"
+          }
+        ]
+      },
+      "analysis": {
+        "text": "The revision reduces downside dispersion but does not increase the best-case outcome.",
+        "sources": [
+          {
+            "source_id": "S2",
+            "locator": "prepared remarks, guidance paragraph"
+          },
+          {
+            "source_id": "S1",
+            "locator": "prepared remarks, guidance paragraph"
+          }
+        ]
+      },
+      "modifiers": [
+        "floor_raised",
+        "range_narrowed"
+      ]
+    },
+    {
+      "metric": "Adjusted operating margin",
+      "target_period": "FY2026",
+      "scope": "Consolidated company",
+      "basis": "Company-defined non-GAAP",
+      "unit": "percentage points",
+      "currency": "USD",
+      "classification": "maintained",
+      "prior": {
+        "value": "18%–19%",
+        "source_id": "S2",
+        "locator": "prepared remarks, guidance paragraph"
+      },
+      "current": {
+        "value": "18%–19%",
+        "source_id": "S1",
+        "locator": "prepared remarks, guidance paragraph"
+      },
+      "change": {
+        "text": "The range was unchanged.",
+        "sources": [
+          {
+            "source_id": "S2",
+            "locator": "prepared remarks, guidance paragraph"
+          },
+          {
+            "source_id": "S1",
+            "locator": "prepared remarks, guidance paragraph"
+          }
+        ]
+      },
+      "analysis": {
+        "text": "Management did not flow the higher revenue floor through to the stated margin range.",
+        "sources": [
+          {
+            "source_id": "S1",
+            "locator": "prepared remarks, guidance paragraph"
+          }
+        ]
+      }
+    }
+  ],
+  "kpi_table": {
+    "periods": [
+      "Q2 FY2026",
+      "Q1 FY2026",
+      "Q4 FY2025",
+      "Q3 FY2025"
+    ],
+    "rows": [
+      {
+        "metric": "Revenue",
+        "category": "Financial",
+        "scope": "Consolidated company",
+        "basis": "GAAP",
+        "definition": "Revenue as reported in the quarterly earnings release.",
+        "definition_change": "No definition change identified across the four target quarters.",
+        "comparability_status": "exact",
+        "unit": "USD millions",
+        "values": [
+          {
+            "status": "reported",
+            "value": "$1,080",
+            "source_id": "S1",
+            "locator": "prepared remarks, paragraph 8"
+          },
+          {
+            "status": "reported",
+            "value": "$1,020",
+            "source_id": "S2",
+            "locator": "prepared remarks, paragraph 7"
+          },
+          {
+            "status": "reported",
+            "value": "$990",
+            "source_id": "S3",
+            "locator": "prepared remarks, paragraph 8"
+          },
+          {
+            "status": "reported",
+            "value": "$955",
+            "source_id": "S4",
+            "locator": "prepared remarks, paragraph 8"
+          }
+        ],
+        "takeaway": {
+          "text": "Sequential growth accelerated to 5.9% in the latest quarter.",
+          "sources": [
+            {
+              "source_id": "S1",
+              "locator": "prepared remarks, paragraph 8"
+            },
+            {
+              "source_id": "S2",
+              "locator": "prepared remarks, paragraph 7"
+            }
+          ]
+        }
+      },
+      {
+        "metric": "Net revenue retention",
+        "category": "Operating KPI",
+        "scope": "Subscription customers",
+        "basis": "Company-defined",
+        "definition": "Trailing-twelve-month recurring revenue from the opening customer cohort divided by its opening recurring revenue.",
+        "definition_change": "No disclosed definition change; Q3 FY2025 was not reported.",
+        "comparability_status": "insufficient_evidence",
+        "unit": "percent",
+        "values": [
+          {
+            "status": "reported",
+            "value": "116%",
+            "source_id": "S1",
+            "locator": "prepared remarks, paragraph 11"
+          },
+          {
+            "status": "reported",
+            "value": "115%",
+            "source_id": "S2",
+            "locator": "prepared remarks, paragraph 10"
+          },
+          {
+            "status": "reported",
+            "value": "114%",
+            "source_id": "S3",
+            "locator": "prepared remarks, paragraph 10"
+          },
+          {
+            "status": "not_discussed",
+            "gap_reason": "Issuer did not disclose this KPI in the Q3 FY2025 call."
+          }
+        ],
+        "takeaway": {
+          "text": "Retention improved for two consecutive reported quarters, with an explicit historical disclosure gap.",
+          "sources": [
+            {
+              "source_id": "S1",
+              "locator": "prepared remarks, paragraph 11"
+            },
+            {
+              "source_id": "S2",
+              "locator": "prepared remarks, paragraph 10"
+            },
+            {
+              "source_id": "S3",
+              "locator": "prepared remarks, paragraph 10"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "sentiment": {
+    "method": {
+      "kind": "finbert_probabilities",
+      "identifier": "synthetic-fixture-finance-classifier",
+      "version": "1.0.0",
+      "asset_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+    },
+    "scope": "executive_total",
+    "coverage": "Three available target calls and one explicit Q4 transcript gap; management turns included, operator and safe-harbor text excluded.",
+    "quarters": [
+      {
+        "period": "Q2 FY2026",
+        "status": "available",
+        "score": 31.0,
+        "label": "Constructive",
+        "source_id": "S1",
+        "locator": "all included management turns",
+        "word_count": 5480,
+        "turn_count": 32
+      },
+      {
+        "period": "Q1 FY2026",
+        "status": "available",
+        "score": 22.0,
+        "label": "Constructive",
+        "source_id": "S2",
+        "locator": "all included management turns",
+        "word_count": 5230,
+        "turn_count": 30
+      },
+      {
+        "period": "Q4 FY2025",
+        "status": "gap",
+        "gap_reason": "No lawful complete transcript was available for this target fiscal call."
+      },
+      {
+        "period": "Q3 FY2025",
+        "status": "available",
+        "score": 8.0,
+        "label": "Balanced",
+        "source_id": "S4",
+        "locator": "all included management turns",
+        "word_count": 5150,
+        "turn_count": 29
+      }
+    ],
+    "current_vs_prior": {
+      "available": true,
+      "direction": "up",
+      "delta": 9.0,
+      "analysis": {
+        "text": "Sentiment improved by 9.0 points quarter over quarter, supported by firmer demand and execution language.",
+        "sources": [
+          {
+            "source_id": "S1",
+            "locator": "all included management turns"
+          },
+          {
+            "source_id": "S2",
+            "locator": "all included management turns"
+          }
+        ]
+      }
+    },
+    "latest_lenses": [
+      {
+        "lens": "Prepared remarks",
+        "score": 38.0,
+        "label": "Constructive",
+        "sources": [
+          {
+            "source_id": "S1",
+            "locator": "prepared remarks"
+          }
+        ]
+      },
+      {
+        "lens": "Q&A",
+        "score": 20.0,
+        "label": "Slightly constructive",
+        "sources": [
+          {
+            "source_id": "S1",
+            "locator": "Q&A"
+          }
+        ]
+      },
+      {
+        "lens": "CEO",
+        "score": 35.0,
+        "label": "Constructive",
+        "sources": [
+          {
+            "source_id": "S1",
+            "locator": "CEO turns"
+          }
+        ]
+      },
+      {
+        "lens": "CFO",
+        "score": 27.0,
+        "label": "Constructive",
+        "sources": [
+          {
+            "source_id": "S1",
+            "locator": "CFO turns"
+          }
+        ]
+      }
+    ]
+  },
+  "hedge_analysis": {
+    "method": "Longest-match deterministic phrase count across included management turns, normalized per 1,000 words.",
+    "version": "dw-hedge-1.0",
+    "scope": "executive_total",
+    "coverage": "Three available target calls and one explicit Q4 transcript gap; operator, analyst, and safe-harbor turns excluded.",
+    "quarters": [
+      {
+        "period": "Q2 FY2026",
+        "status": "available",
+        "raw_count": 42,
+        "word_count": 5480,
+        "rate_per_1000": 7.66,
+        "source_id": "S1",
+        "locator": "all included management turns"
+      },
+      {
+        "period": "Q1 FY2026",
+        "status": "available",
+        "raw_count": 34,
+        "word_count": 5230,
+        "rate_per_1000": 6.5,
+        "source_id": "S2",
+        "locator": "all included management turns"
+      },
+      {
+        "period": "Q4 FY2025",
+        "status": "gap",
+        "gap_reason": "No lawful complete transcript was available for this target fiscal call."
+      },
+      {
+        "period": "Q3 FY2025",
+        "status": "available",
+        "raw_count": 31,
+        "word_count": 5150,
+        "rate_per_1000": 6.02,
+        "source_id": "S4",
+        "locator": "all included management turns"
+      }
+    ],
+    "current_vs_prior": {
+      "available": true,
+      "direction": "up",
+      "delta": 1.16,
+      "analysis": {
+        "text": "The hedge rate rose by 1.16 cues per 1,000 words, concentrated in deployment-timing answers.",
+        "sources": [
+          {
+            "source_id": "S1",
+            "locator": "Q&A, deployment timing responses"
+          },
+          {
+            "source_id": "S2",
+            "locator": "Q&A, deployment timing responses"
+          }
+        ]
+      }
+    },
+    "top_terms": [
+      {
+        "term": "we expect",
+        "count": 11
+      },
+      {
+        "term": "approximately",
+        "count": 7
+      },
+      {
+        "term": "may",
+        "count": 6
+      },
+      {
+        "term": "could",
+        "count": 5
+      }
+    ]
+  },
+  "qa_themes": [
+    {
+      "theme": "Backlog conversion",
+      "analysis": {
+        "text": "Management quantified the backlog but did not provide a firm conversion schedule, citing customer deployment timing.",
+        "sources": [
+          {
+            "source_id": "S1",
+            "locator": "Q&A, question 2"
+          }
+        ]
+      }
+    },
+    {
+      "theme": "Pricing discipline",
+      "analysis": {
+        "text": "Management described discounts as selective and tied to multi-year commitments.",
+        "sources": [
+          {
+            "source_id": "S1",
+            "locator": "Q&A, question 5"
+          }
+        ]
+      }
+    }
+  ],
+  "risks": [
+    {
+      "risk": "Deployment slippage",
+      "analysis": {
+        "text": "Longer implementation timelines could defer backlog conversion and pressure near-term revenue visibility.",
+        "sources": [
+          {
+            "source_id": "S1",
+            "locator": "Q&A, questions 2 and 4"
+          }
+        ]
+      }
+    },
+    {
+      "risk": "Margin conversion",
+      "analysis": {
+        "text": "Flat margin guidance despite a higher revenue floor suggests limited incremental operating leverage in the current plan.",
+        "sources": [
+          {
+            "source_id": "S1",
+            "locator": "prepared remarks, guidance paragraph"
+          }
+        ]
+      }
+    }
+  ],
+  "monitoring_items": [
+    {
+      "item": "Bookings growth",
+      "signal": {
+        "text": "Year-over-year bookings growth above revenue growth would support demand durability.",
+        "sources": [
+          {
+            "source_id": "S1",
+            "locator": "prepared remarks, paragraph 13"
+          }
+        ]
+      }
+    },
+    {
+      "item": "Hedge-rate reversal",
+      "signal": {
+        "text": "A lower normalized hedge rate around deployment timing would strengthen confidence in backlog conversion.",
+        "sources": [
+          {
+            "source_id": "S1",
+            "locator": "Q&A, deployment timing responses"
+          }
+        ]
+      }
+    }
+  ],
+  "sources": [
+    {
+      "id": "S1",
+      "title": "Q2 FY2026 earnings call transcript",
+      "publisher": "Example Systems investor relations",
+      "url": "https://example.com/investors/q2-fy2026-transcript",
+      "published_at": "2026-07-30T17:00:00-04:00",
+      "retrieved_at": "2026-08-11T12:00:00-04:00",
+      "fiscal_period": "Q2 FY2026",
+      "coverage": "Complete written transcript with speaker attribution",
+      "source_type": "Issuer transcript",
+      "source_grade": "A — primary",
+      "rights_access_note": "Public investor-relations page; analysis stores derived evidence and source metadata only.",
+      "raw_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "normalized_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+    },
+    {
+      "id": "S2",
+      "title": "Q1 FY2026 earnings call transcript",
+      "publisher": "Example Systems investor relations",
+      "url": "https://example.com/investors/q1-fy2026-transcript",
+      "published_at": "2026-04-29T17:00:00-04:00",
+      "retrieved_at": "2026-08-11T12:04:00-04:00",
+      "fiscal_period": "Q1 FY2026",
+      "coverage": "Complete written transcript with speaker attribution",
+      "source_type": "Issuer transcript",
+      "source_grade": "A — primary",
+      "rights_access_note": "Public investor-relations page; analysis stores derived evidence and source metadata only."
+    },
+    {
+      "id": "S3",
+      "title": "Q4 FY2025 earnings release",
+      "publisher": "Example Systems investor relations",
+      "url": "https://example.com/investors/q4-fy2025-release",
+      "published_at": "2026-02-03T17:00:00-05:00",
+      "retrieved_at": "2026-08-11T12:08:00-04:00",
+      "fiscal_period": "Q4 FY2025",
+      "coverage": "Official numerical disclosure; no lawful complete transcript available",
+      "source_type": "Issuer earnings release",
+      "source_grade": "A — primary numerical source",
+      "rights_access_note": "Public earnings release retained for KPI evidence; no Q4 transcript text is represented."
+    },
+    {
+      "id": "S4",
+      "title": "Q3 FY2025 earnings call transcript",
+      "publisher": "Example Systems investor relations",
+      "url": "https://example.com/investors/q3-fy2025-transcript",
+      "published_at": "2025-10-30T17:00:00-04:00",
+      "retrieved_at": "2026-08-11T12:12:00-04:00",
+      "fiscal_period": "Q3 FY2025",
+      "coverage": "Complete written transcript with speaker attribution",
+      "source_type": "Issuer transcript",
+      "source_grade": "A — primary",
+      "rights_access_note": "Public investor-relations page; analysis stores derived evidence and source metadata only."
+    }
+  ],
+  "methodology": [
+    "Prefer issuer-published written transcripts and retain speaker attribution and source locators.",
+    "Compare guidance only when prior and current target period, scope, basis, unit, and currency are aligned.",
+    "Score sentiment with the single finance classifier identified in the structured manifest on a −100 to +100 scale.",
+    "Count hedge phrases in management turns only, preserve raw counts, and normalize per 1,000 included words.",
+    "Separate company facts, management claims, calculated changes, and analyst interpretation."
+  ],
+  "limitations": [
+    "Sentiment and hedge measures are language indicators, not forecasts of fundamentals or security returns.",
+    "Transcript corrections, incomplete speaker attribution, or provider normalization can change lexical results.",
+    "Company-defined KPIs may change definition; the report discloses definition, scope, and basis rather than assuming comparability.",
+    "This fixture uses a fictional issuer and illustrative evidence."
+  ],
+  "analysis_manifest": {
+    "normalization": {
+      "identifier": "synthetic-fixture-normalizer",
+      "version": "1.0.0"
+    },
+    "analyzer": {
+      "identifier": "analyze_language.py",
+      "version": "1.1.0"
+    },
+    "renderer": {
+      "identifier": "render_report.py",
+      "version": "1.1.0"
+    },
+    "normalized_input_sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+    "analyzer_config_sha256": "3320ae2ee8e2f0066816c30459116bd646ef53408555d4812d132ed6f6af4f38",
+    "sentiment_method": {
+      "kind": "finbert_probabilities",
+      "identifier": "synthetic-fixture-finance-classifier",
+      "version": "1.0.0",
+      "asset_sha256": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"
+    },
+    "hedge_lexicon_sha256": "c8c7ada032f417ea0f02fb041c997f37ce5cc5b804fbbcb81ac46dcfb0ac1278"
+  },
+  "compliance": {
+    "rights_reviewed": true,
+    "contains_no_known_confidential_third_party_information": true,
+    "statement": "Rights and access were reviewed for every source. This report uses public, authorized, or synthetic material and contains no information known to be confidential to a third party."
+  }
+}
