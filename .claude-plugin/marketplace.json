@@ -1,0 +1,14 @@
+{
+  "name": "davewang",
+  "description": "Free AI-for-investing skills by Dave Wang.",
+  "owner": {
+    "name": "Dave Wang",
+    "url": "https://www.davewang.ai"
+  },
+  "plugins": [
+    {
+      "name": "earnings",
+      "source": "./"
+    }
+  ]
+}

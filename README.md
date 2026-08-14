@@ -1,4 +1,4 @@
-# Analyze Earnings Calls for Codex
+# Earnings Call Analyzer for Codex + Claude Code
 
 Analyze a public company's four most recent earnings calls and generate a polished, self-contained HTML report.
 
@@ -6,7 +6,11 @@ The skill extracts key performance indicators and management guidance, compares 
 
 ![Desktop earnings report](docs/meta-report-desktop.png)
 
-## Install in Codex
+## Quick start
+
+Replace `HOOD` with any public company ticker.
+
+### Codex
 
 Paste this into Codex:
 
@@ -14,21 +18,28 @@ Paste this into Codex:
 $skill-installer Install the skill from https://github.com/davidwang95/analyze-earnings-calls/tree/main/skills/analyze-earnings-calls
 ```
 
-The skill becomes available on the next turn. If it does not appear, restart Codex.
-
-## Run it
-
-Invoke the skill with a public company name or ticker:
+Then run:
 
 ```text
-$analyze-earnings-calls META
+$analyze-earnings-calls HOOD
 ```
 
-You can also make the request explicit:
+### Claude Code
+
+Paste these into Claude Code:
 
 ```text
-$analyze-earnings-calls Analyze NVIDIA's four most recent completed earnings calls and generate the HTML report.
+/plugin marketplace add davidwang95/analyze-earnings-calls
+/plugin install earnings@davewang
 ```
+
+Then run:
+
+```text
+/earnings:analyze-earnings-calls HOOD
+```
+
+If Claude Code asks you to reload after installation, run `/reload-plugins` once.
 
 ## What the report contains
 

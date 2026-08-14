@@ -1,0 +1,12 @@
+{
+  "name": "earnings",
+  "displayName": "Earnings Call Analyzer",
+  "description": "Analyze a public company's four most recent earnings calls for KPIs, guidance changes, executive sentiment, and hedge language.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Dave Wang",
+    "url": "https://www.davewang.ai"
+  },
+  "homepage": "https://www.davewang.ai",
+  "repository": "https://github.com/davidwang95/analyze-earnings-calls"
+}
