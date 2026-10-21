@@ -3,3 +3,21 @@ __pycache__/
 *.orig
 *.rej
 .DS_Store
+
+# Private working data (only the safe directory guide is versioned).
+/local-research/*
+!/local-research/README.md
+
+# Workflow artifacts accidentally saved elsewhere. Keep exceptions exact.
+transcript-turns.json
+language-analysis.json
+report-payload.json
+*-earnings-analysis.html
+*transcript*.txt
+*transcript*.pdf
+*transcript*.docx
+*transcript*.html
+*.vtt
+*.srt
+!skills/analyze-earnings-calls/evals/fixtures/transcript-turns.json
+!skills/analyze-earnings-calls/evals/fixtures/report-payload.json

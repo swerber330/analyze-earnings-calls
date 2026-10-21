@@ -41,6 +41,21 @@ Then run:
 
 If Claude Code asks you to reload after installation, run `/reload-plugins` once.
 
+## Keep research out of this public repository
+
+Store all real transcripts, normalized data, calculations, payloads, and reports in
+[`local-research/`](local-research/README.md), whose contents are ignored except for
+its guide. Enable the staging safeguard once per clone:
+
+```bash
+git config --local core.hooksPath .githooks
+```
+
+Requires Git and Python 3. If you already use hooks, integrate the checker with
+your existing hook instead. Read [setup, workflow examples, and limits](docs/research-data-safety.md).
+Hooks are opt-in and do not remove files already in Git history. Keep fixtures and
+public examples free of real research.
+
 ## What the report contains
 
 - Executive summary and current-versus-prior-quarter readout
