@@ -1,0 +1,5 @@
+#!/bin/sh
+# Dependency-free; inspect the index, including force-added files.
+set -eu
+cd "$(git rev-parse --show-toplevel)"
+exec python3 scripts/check_research_files.py
