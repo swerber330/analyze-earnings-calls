@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://www.davewang.ai/schemas/earnings-transcript-input-1.0.json",
+  "$id": "urn:analyze-earnings-calls:earnings-transcript-input:1.0",
   "title": "Normalized four-slot earnings-call language-analysis input",
   "type": "object",
   "required": [

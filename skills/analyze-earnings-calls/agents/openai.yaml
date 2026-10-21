@@ -1,4 +1,4 @@
 interface:
   display_name: "Earnings Call Analyzer"
-  short_description: "Branded four-call KPI and language analysis"
-  default_prompt: "Use $analyze-earnings-calls to analyze the last four earnings calls for a public company and produce a DaveWing-branded responsive HTML report with a unified language timeline, KPI and guidance analysis, compact citations, and a precise source-locator ledger."
+  short_description: "Neutral four-call KPI and language analysis"
+  default_prompt: "Use $analyze-earnings-calls to analyze the last four earnings calls for a public company and produce a professionally neutral responsive HTML report with a unified language timeline, KPI and guidance analysis, compact citations, and a precise source-locator ledger."

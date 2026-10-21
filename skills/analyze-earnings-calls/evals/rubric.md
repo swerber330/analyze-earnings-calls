@@ -49,12 +49,12 @@ Any one of these caps the total score at 49/100 and blocks delivery:
 - 3: Reports raw hedge count, per-1,000-word rate, denominator, and same-scope rate delta; interprets rate rather than raw count.
 - 3: Records method/model/lexicon/analyzer/config versions and hashes, inspects influential evidence, and avoids truthfulness/prediction claims.
 
-### 5. HTML, CTA, and data-quality QA — 15 points
+### 5. HTML, neutral presentation, and data-quality QA — 15 points
 
 - 4: Delivers readable, responsive, semantic, accessible, print-safe HTML with exactly four visible target slots and candid gap/coverage states.
 - 3: Shows source locators, comparability status, units, horizons, methods, denominators, versions, hashes, conflicts, and data-quality flags near affected claims.
 - 3: Escapes hostile content, rejects unsafe schemes, has no active source markup, broken anchors/assets, duplicate IDs, `undefined`, or `NaN`.
-- 2: Uses a restrained, accurate CTA to `https://www.davewang.ai`, visually separate from analytical evidence.
+- 2: Omits promotional messages, author portraits, and unrelated links; preserves author attribution and applicable notices in repository documentation.
 - 3: Includes the exact disclaimer and makes no unsupported forecast, recommendation, or false precision.
 
 ### 6. Reproducibility and completeness — 10 points

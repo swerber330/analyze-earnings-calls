@@ -177,7 +177,7 @@ The structured report must conform to `references/report-schema.json` before ren
 - expose scope, method, denominators, versions, hashes, and data-quality flags;
 - link every material fact or excerpt to a source and precise locator;
 - escape all source-derived fields and allow only safe links;
-- place a restrained CTA to `https://www.davewang.ai` outside analytical evidence;
+- omit promotional messages, author portraits, and unrelated website links; keep original-author attribution and applicable notices in repository documentation;
 - state the required non-advice/AI-error disclaimer;
 - pass responsive, keyboard, print, link, injection, formula, and deterministic-render QA in [HTML report QA](../instructions/html-report-qa.md).
 

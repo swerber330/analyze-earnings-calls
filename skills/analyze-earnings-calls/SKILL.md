@@ -56,7 +56,7 @@ Consult [references/methodology.md](references/methodology.md) when a source, fi
 - Put a working source link or source ID beside every material numerical or interpretive claim.
 - Escape all source-derived text in HTML. Do not allow source HTML, scripts, event handlers, or URLs to execute.
 - Complete the rights/access review and confirm no information known to be confidential to a third party before setting the required compliance gates to true; otherwise stop rather than render.
-- Use the exact CTA and link defined by the report contract: “Skill by Dave Wang. Find more free AI-for-investing resources at www.davewang.ai.” linking to https://www.davewang.ai.
+- Generate professionally neutral reports without promotional messages, author portraits, or unrelated website links. Preserve original-author attribution and applicable notices in repository documentation, separate from the investment analysis.
 - Include this exact disclaimer: “Not financial advice. AI-generated analysis may contain errors or hallucinations. Verify all facts and calculations independently and consult a qualified financial adviser before acting.”
 - Do not issue buy/sell instructions, position sizing, price targets, or unsupported consensus comparisons.
 

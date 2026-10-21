@@ -469,8 +469,12 @@ def assert_no_runtime_assets(rendered: str) -> None:
 def test_rendered_html(renderer: ModuleType, payload: dict[str, Any]) -> None:
     payload = payload_with_gap(payload)
     rendered = renderer.render_html(copy.deepcopy(payload))
-    require(rendered.count(renderer.CTA) == 2, "exact CTA copy must appear twice")
-    require(rendered.count(f'href="{renderer.CTA_URL}"') == 2, "exact CTA destination must appear twice")
+    require('class="cta' not in rendered, "promotional section survived rendering")
+    require("davewang.ai" not in rendered.lower(), "unrelated promotional destination survived rendering")
+    require("<img" not in rendered.lower(), "portrait or unrelated image survived rendering")
+    external_links = set(re.findall(r'href="(https://[^"]+)"', rendered))
+    source_links = {html_module.escape(source["url"], quote=True) for source in payload["sources"] if source.get("url")}
+    require(external_links == source_links, "external report links must match the source ledger")
     require(rendered.count(renderer.DISCLAIMER) == 1, "exact disclaimer must appear once")
     require("<script" not in rendered.lower(), "rendered report contains a script tag")
     assert_no_runtime_assets(rendered)
@@ -542,13 +546,6 @@ def test_report_readability_contract(renderer: ModuleType, payload: dict[str, An
     for target in ("executive", "sentiment", "hedging", "guidance", "kpis", "qa", "risks", "sources"):
         require(f'href="#{target}"' in rendered and f'id="{target}"' in rendered, f"broken report navigation target: {target}")
 
-    hero_end = rendered.index("</header>")
-    executive_start = rendered.index('<section id="executive">')
-    opening_cta = rendered.index('class="cta cta-opening"')
-    require('class="cta cta-opening"' not in rendered[:hero_end], "opening CTA interrupts the cover")
-    require(opening_cta > executive_start, "opening CTA must follow the executive analysis")
-    require(rendered.count('class="cta cta-opening"') == 1, "opening CTA count changed")
-
     ordered_ids = ("executive", "sentiment", "hedging", "guidance", "kpis", "qa", "risks", "sources")
     positions = [rendered.index(f'<section id="{section_id}">') for section_id in ordered_ids]
     require(positions == sorted(positions), "report sections are not in the required insight-first order")
@@ -583,7 +580,7 @@ def main() -> int:
         ("analyst and safe-harbor invariance", lambda: test_attribution_invariance(analyzer)),
         ("May/about context and longest-match overlap", lambda: test_may_about_and_overlap(analyzer)),
         ("report four-slot, gap, source, and calculation validation", lambda: test_report_validation_and_math(renderer, report_payload)),
-        ("CTA, disclaimer, self-contained HTML, and injection safety", lambda: test_rendered_html(renderer, report_payload)),
+        ("neutral presentation, disclaimer, self-contained HTML, and injection safety", lambda: test_rendered_html(renderer, report_payload)),
         ("compact citations, responsive tables, and insight-first hierarchy", lambda: test_report_readability_contract(renderer, report_payload)),
         ("deterministic analyzer and renderer rerun", lambda: test_deterministic_rerun(analyzer, renderer)),
     ]
