@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://www.davewang.ai/schemas/earnings-call-report-1.0.json",
-  "title": "Dave Wang earnings-call analysis report",
+  "$id": "urn:analyze-earnings-calls:earnings-call-report:1.0",
+  "title": "Earnings-call analysis report",
   "description": "Strict renderer input. Arrays preserve display order; use newest-first order for all quarter series. Source IDs must also pass the renderer's cross-reference validation.",
   "type": "object",
   "additionalProperties": false,

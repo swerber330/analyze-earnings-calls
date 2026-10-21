@@ -1,0 +1,40 @@
+name: Synthetic report QA
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  reports:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: skills/analyze-earnings-calls
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Deterministic and safety regressions
+        run: |
+          python3 scripts/analyze_language.py --self-test
+          python3 scripts/render_report.py --self-test
+          python3 evals/run_evals.py
+      - name: Verify checked-in synthetic example
+        run: |
+          python3 scripts/render_report.py evals/fixtures/report-payload.json /tmp/expected-report.html
+          cmp /tmp/expected-report.html ../../examples/example-earnings-call-report.html
+      - name: Desktop, mobile, and print browser regressions
+        run: python3 evals/qa_synthetic_reports.py /tmp/earnings-report-qa
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: synthetic-report-qa
+          path: /tmp/earnings-report-qa/
+          if-no-files-found: warn
+          retention-days: 14

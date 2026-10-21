@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
 import { spawn } from "node:child_process";
-import { access, mkdtemp, rm } from "node:fs/promises";
+import { access, mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
 import { createServer } from "node:net";
 import { tmpdir } from "node:os";
-import { resolve } from "node:path";
+import { basename, join, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 
 const delay = (milliseconds) => new Promise((resolveDelay) => setTimeout(resolveDelay, milliseconds));
@@ -118,8 +118,6 @@ async function measure(send, width, height, mobile) {
       };
     });
     const sectionIds = ['executive', 'sentiment', 'hedging', 'guidance', 'kpis', 'qa', 'risks', 'sources'];
-    const openingCta = document.querySelector('.cta-opening');
-    const executive = document.querySelector('#executive');
     const navLinks = [...document.querySelectorAll('.report-nav a')];
     const hedgeGap = document.querySelector('.hedge-row.gap');
     const hedgeGapReason = hedgeGap?.querySelector('small');
@@ -147,8 +145,12 @@ async function measure(send, width, height, mobile) {
       tables,
       sectionPositions: sectionIds.map((id) => Math.round(document.querySelector('#' + id).getBoundingClientRect().top + scrollY)),
       reportNav: Boolean(document.querySelector('.report-nav')),
-      openingCtaInHero: Boolean(document.querySelector('.hero .cta-opening')),
-      openingCtaInExecutive: Boolean(openingCta && executive?.contains(openingCta)),
+      promotionalSectionCount: document.querySelectorAll('.cta, .cta-opening, .cta-closing').length,
+      imageCount: document.querySelectorAll('img').length,
+      activeElementCount: document.querySelectorAll('script, iframe, object, embed').length,
+      unrelatedExternalLinks: [...document.querySelectorAll('a[href^="https://"]')]
+        .filter((link) => ![...document.querySelectorAll('.source-table a[href^="https://"]')]
+          .some((source) => source.href === link.href)).length,
     };
   })()`;
   const evaluation = await send("Runtime.evaluate", {
@@ -203,12 +205,21 @@ function validate(result, viewport) {
   check(result.documentScrollWidth <= result.innerWidth + 1, `${viewport}: document overflows horizontally (${result.documentScrollWidth}px > ${result.innerWidth}px).`);
   check(result.reportNav, `${viewport}: report navigation is missing.`);
   check(result.navLinkCount === 8 && result.navLinksFullyVisible, `${viewport}: report navigation is incomplete or clipped.`);
-  check(!result.openingCtaInHero && result.openingCtaInExecutive, `${viewport}: opening CTA is not placed after the executive analysis.`);
+  check(result.promotionalSectionCount === 0 && result.imageCount === 0 && result.activeElementCount === 0, `${viewport}: promotional section or portrait found.`);
+  check(result.unrelatedExternalLinks === 0, `${viewport}: external link is absent from the source ledger.`);
   check(result.citationCount > 0 && result.maxCitationLength <= 8, `${viewport}: citation labels are missing or too long.`);
   check(result.tables.length === 3, `${viewport}: expected three responsive dense tables.`);
   check(result.timelineCardCount === 4 && result.timelineCardsComplete, `${viewport}: unified four-call language timeline is missing or incomplete.`);
   check(result.locatorSummaryCount > 0, `${viewport}: precise locator index is missing.`);
   check(result.sectionPositions.every((value, index, values) => index === 0 || value > values[index - 1]), `${viewport}: report sections are not in insight-first order.`);
+}
+
+async function capture(send, reportPath, viewport) {
+  if (!process.env.REPORT_QA_ARTIFACT_DIR) return;
+  const destination = resolve(process.env.REPORT_QA_ARTIFACT_DIR);
+  await mkdir(destination, { recursive: true });
+  const screenshot = await send("Page.captureScreenshot", { format: "png", captureBeyondViewport: false });
+  await writeFile(join(destination, `${basename(reportPath, ".html")}-${viewport}.png`), Buffer.from(screenshot.data, "base64"));
 }
 
 async function main() {
@@ -236,7 +247,9 @@ async function main() {
     await client.send("Page.enable");
     await client.send("Runtime.enable");
     const desktop = await measure(client.send, 1440, 1000, false);
+    await capture(client.send, reportPath, "desktop");
     const mobile = await measure(client.send, 390, 844, true);
+    await capture(client.send, reportPath, "mobile");
     const print = await measurePrint(client.send);
     validate(desktop, "desktop");
     validate(mobile, "mobile");

@@ -41,18 +41,16 @@ SHA-256 and locator details are available in the source ledger. No paywall-restr
 
 > Not financial advice. AI-generated analysis may contain errors or hallucinations. Verify all facts and calculations independently and consult a qualified financial adviser before acting.
 
-[Skill by Dave Wang. Find more free AI-for-investing resources at www.davewang.ai.](https://www.davewang.ai)
-
 ## Why this is good
 
 - It uses current plus three prior completed fiscal calls and treats a combined Q4/FY event once.
 - It compares language on one management-only scope and exposes method, counts, denominators, versions, and hashes.
 - It separates exact KPI continuity from a definition break and treats an absent mention correctly.
 - It classifies guidance from comparable endpoints and labels midpoint/width arithmetic as derived.
-- It resolves a source conflict without erasing provenance and keeps the CTA separate from evidence.
+- It resolves a source conflict without erasing provenance and keeps source attribution attached to evidence.
 
 ## Presentation contract
 
-- The report opens with the company and fiscal period, then the executive readout. The first DaveWing CTA follows the analysis instead of interrupting the cover.
+- The report opens with the company and fiscal period, then the executive readout. Promotional messages, author portraits, and unrelated links are absent.
 - One four-call language timeline shows sentiment, hedge rate, raw cue count, denominator, scope, coverage, gaps, and compact `[S#]` citations for every fiscal slot.
 - At 390 px, guidance, KPI, and source tables become labeled full-width cards. Every report-navigation link remains visible, source links retain contrast, and citation targets remain usable.

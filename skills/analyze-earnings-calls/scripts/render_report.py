@@ -27,19 +27,16 @@ from urllib.parse import urlsplit
 ROOT = Path(__file__).resolve().parent.parent
 ASSETS = ROOT / "assets"
 TEMPLATE = ASSETS / "report-template.html"
-RENDERER_VERSION = "1.1.0"
+RENDERER_VERSION = "1.2.0"
 SCHEMA = ROOT / "references" / "report-schema.json"
 FIXTURE = ROOT / "evals" / "fixtures" / "report-payload.json"
 
-CTA = "Skill by Dave Wang. Find more free AI-for-investing resources at www.davewang.ai."
-CTA_URL = "https://www.davewang.ai"
 DISCLAIMER = (
     "Not financial advice. AI-generated analysis may contain errors or hallucinations. "
     "Verify all facts and calculations independently and consult a qualified financial "
     "adviser before acting."
 )
 ASSET_FILES = {
-    "portrait": ASSETS / "dave-profile-APPROVED.jpg",
     "body_font": ASSETS / "fonts" / "manrope.ttf",
     "display_font": ASSETS / "fonts" / "league-gothic.ttf",
     "mono_font": ASSETS / "fonts" / "ibm-plex-mono.ttf",
@@ -602,13 +599,6 @@ def section_heading(kicker: str, title: str, intro: str = "") -> str:
     return f'<div class="section-head"><span>{esc(kicker)}</span><h2>{esc(title)}</h2>{intro_html}</div>'
 
 
-def cta_html(portrait_uri: str, position: str) -> str:
-    return (
-        f'<aside class="cta cta-{esc(position)}"><img src="{portrait_uri}" alt="Dave Wang" '
-        'width="72" height="72"><a href="https://www.davewang.ai">'
-        f'{esc(CTA)}</a></aside>'
-    )
-
 def table_region(table_html: str, label: str) -> str:
     return (
         f'<div class="table-wrap" role="region" aria-label="{esc(label)}" tabindex="0">'
@@ -830,7 +820,6 @@ def render_html(payload: dict[str, Any]) -> str:
     payload = validate(payload)
     sources = source_map(payload)
     company = payload["company"]
-    portrait_uri = asset_data_uri(ASSET_FILES["portrait"], "image/jpeg")
     body_font_uri = asset_data_uri(ASSET_FILES["body_font"], "font/ttf")
     display_font_uri = asset_data_uri(ASSET_FILES["display_font"], "font/ttf")
     mono_font_uri = asset_data_uri(ASSET_FILES["mono_font"], "font/ttf")
@@ -847,14 +836,14 @@ def render_html(payload: dict[str, Any]) -> str:
     sections = [
         f'<header class="hero"><div class="hero-rule"></div><span class="eyebrow">Earnings call intelligence</span><h1>{esc(company["name"])}<br><em>{esc(company["fiscal_period"])}</em></h1><p class="hero-meta">{esc(meta)}</p><div class="hero-badges"><span>Generated {esc(generated_label)}</span><span>{esc(coverage_badge)}</span></div><p class="period-order"><b>Newest-first target periods</b> {esc(target_order)}</p><p class="hero-dek">Four-quarter KPI, guidance, sentiment, and management-language analysis.</p></header>',
         report_nav(),
-        f'<section id="executive">{section_heading("01", "Executive view", "What changed, what matters, and what to watch.")}{executive_html(payload, sources)}{cta_html(portrait_uri, "opening")}</section>',
+        f'<section id="executive">{section_heading("01", "Executive view", "What changed, what matters, and what to watch.")}{executive_html(payload, sources)}</section>',
         f'<section id="sentiment">{section_heading("02", "Language trend", "Sentiment and hedge language across four calls, with the latest call compared directly with the prior quarter.")}{language_timeline_html(payload["sentiment"], payload["hedge_analysis"], sources)}{sentiment_html(payload["sentiment"], sources)}</section>',
         f'<section id="hedging">{section_heading("03", "Hedge language", "Raw cue counts and normalized rates per 1,000 included management words.")}{hedge_html(payload["hedge_analysis"], sources)}</section>',
         f'<section id="guidance">{section_heading("04", "Guidance changes", "Prior and current company guidance shown side by side.")}{guidance_html(payload["guidance_changes"], sources)}</section>',
         f'<section id="kpis">{section_heading("05", "KPI four-quarter table", "Four target periods with explicit disclosure gaps.")}{kpi_html(payload["kpi_table"], sources)}</section>',
         f'<section id="qa">{section_heading("06", "Q&A pressure points")}{evidence_cards(payload["qa_themes"], "theme", "analysis", sources)}</section>',
         f'<section id="risks">{section_heading("07", "Risks and monitoring")}<h3 class="subsection-title">Risks</h3>{evidence_cards(payload["risks"], "risk", "analysis", sources)}<h3 class="subsection-title">Monitoring dashboard</h3>{evidence_cards(payload["monitoring_items"], "item", "signal", sources)}</section>',
-        f'<section id="sources">{section_heading("08", "Sources, method, and limitations", "Source details, methods, and report limitations.")}{sources_html(payload)}{manifest_html(payload["analysis_manifest"])}<div class="compliance-note"><h3>Compliance</h3><p>{esc(payload["compliance"]["statement"])}</p></div><div class="method-columns"><div><h3>Method</h3><ul>{"".join(f"<li>{esc(item)}</li>" for item in payload["methodology"])}</ul></div><div><h3>Limitations</h3><ul>{"".join(f"<li>{esc(item)}</li>" for item in payload["limitations"])}</ul></div></div>{cta_html(portrait_uri, "closing")}<p class="disclaimer">{esc(DISCLAIMER)}</p></section>',
+        f'<section id="sources">{section_heading("08", "Sources, method, and limitations", "Source details, methods, and report limitations.")}{sources_html(payload)}{manifest_html(payload["analysis_manifest"])}<div class="compliance-note"><h3>Compliance</h3><p>{esc(payload["compliance"]["statement"])}</p></div><div class="method-columns"><div><h3>Method</h3><ul>{"".join(f"<li>{esc(item)}</li>" for item in payload["methodology"])}</ul></div><div><h3>Limitations</h3><ul>{"".join(f"<li>{esc(item)}</li>" for item in payload["limitations"])}</ul></div></div><p class="disclaimer">{esc(DISCLAIMER)}</p></section>',
     ]
     template = TEMPLATE.read_text(encoding="utf-8")
     replacements = {
@@ -891,12 +880,12 @@ def self_test() -> None:
     rendered_a = render_html(payload)
     rendered_b = render_html(json.loads(FIXTURE.read_text(encoding="utf-8")))
     assert rendered_a == rendered_b, "rendering is not deterministic"
-    assert rendered_a.count(CTA) == 2, "CTA must appear exactly twice"
-    assert rendered_a.count(f'href="{CTA_URL}"') == 2, "each CTA must be fully linked"
+    assert 'class="cta' not in rendered_a, "promotional sections must not appear"
+    assert "davewang.ai" not in rendered_a.lower(), "unrelated promotional link found"
     assert DISCLAIMER in rendered_a, "exact disclaimer missing"
     assert "<script" not in rendered_a.lower(), "runtime scripts are not allowed"
     assert "{{" not in rendered_a, "unresolved template marker"
-    assert rendered_a.count("data:image/jpeg;base64,") == 2, "portrait must be embedded in both CTAs"
+    assert "<img" not in rendered_a.lower(), "portrait or unrelated image found"
     assert rendered_a.count("data:font/ttf;base64,") == 3, "fonts must be embedded"
     assert not re.search(r'(?:src|href)=["\'](?:/|file:|assets/)', rendered_a), "local runtime asset reference found"
     malicious = json.loads(json.dumps(payload))

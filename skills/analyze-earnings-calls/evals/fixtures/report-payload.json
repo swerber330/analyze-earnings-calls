@@ -597,7 +597,7 @@
     },
     "renderer": {
       "identifier": "render_report.py",
-      "version": "1.1.0"
+      "version": "1.2.0"
     },
     "normalized_input_sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
     "analyzer_config_sha256": "3320ae2ee8e2f0066816c30459116bd646ef53408555d4812d132ed6f6af4f38",
